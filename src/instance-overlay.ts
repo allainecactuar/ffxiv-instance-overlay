@@ -36,8 +36,7 @@
 // 1. https://github.com/hibiyasleep/OverlayPlugin/blob/master/OverlayPlugin.Core/Overlays/LogParseLoglineReader.cs#L68
 // 2. https://github.com/quisquous/cactbot/blob/master/docs/LogGuide.md
 
-namespace InstanceOverlay
-{
+namespace InstanceOverlay {
   const LOG_PARSE_EVENT = 'onLogLine';
 
   interface OverlayPluginLogLine {
