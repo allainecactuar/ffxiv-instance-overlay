@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "gts clean",
     "build:ts": "tsc -p .",
-    "build:static": "copyfiles -u 1 \"src/**/*.{html,css,md}\" dist",
+    "build:static": "copyfiles README.md dist && copyfiles -u 1 \"src/**/*.{html,css,md}\" dist",
     "build": "npm run build:static && npm run build:ts",
     "deploy": "npm run clean && npm run build && gh-pages -d dist",
     "check": "gts check",
