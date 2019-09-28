@@ -1,0 +1,28 @@
+body, html {
+  margin: 0;
+}
+
+html {
+  background-position: top left;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  height: 100%;
+  background-color: transparent;
+  overflow: hidden;
+  /*border: 1px solid white;*/
+}
+
+body {
+  background-color: transparent;
+  margin: 15px 0;
+}
+
+span {
+  font: bold 20px "Segoe UI";
+  line-height: 0;
+  color: #4e1708;
+  border-radius: 50%;
+  background-color: #cfc7b2;
+  padding: 1px 9px 4px 9px;
+  text-align: center;
+}
