@@ -1,15 +1,12 @@
 {
+  "extends": "./node_modules/gts/tsconfig-google.json",
   "compilerOptions": {
-      "target": "es5",
-      "module": "commonjs",
-      "outDir": "dist",
-      "removeComments": true
+    "lib": [ "es5", "dom" ],
+    "target": "es5",
+    "outDir": "dist",
+    "removeComments": true
   },
   "include": [
-      "src/**/*"
-  ],
-  "exclude": [
-      "node_modules",
-      "dist"
-   ]
+    "src/**/*.ts"
+  ]
 }

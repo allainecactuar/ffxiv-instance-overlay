@@ -4,11 +4,14 @@
   "description": "Overlay showing current FFXIV instance for ACT / OverlayPlugin",
   "private": true,
   "scripts": {
-    "clean": "rm -rf dist",
+    "clean": "gts clean",
     "build:ts": "tsc -p .",
     "build:static": "copyfiles -u 1 \"src/**/*.{html,css,md}\" dist",
     "build": "npm run build:static && npm run build:ts",
-    "deploy": "npm run clean && npm run build && gh-pages -d dist"
+    "deploy": "npm run clean && npm run build && gh-pages -d dist",
+    "check": "gts check",
+    "compile": "tsc -p .",
+    "fix": "gts fix"
   },
   "repository": {
     "type": "git",
@@ -20,6 +23,8 @@
   "devDependencies": {
     "copyfiles": "^2.1.1",
     "gh-pages": "^2.1.1",
-    "typescript": "^3.6.3"
+    "gts": "^1.1.0",
+    "typescript": "^3.6.3",
+    "@types/node": "^10.0.3"
   }
 }
