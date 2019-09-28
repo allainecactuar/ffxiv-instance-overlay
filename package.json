@@ -1,0 +1,25 @@
+{
+  "name": "ffxiv-instance-overlay",
+  "version": "1.0.0",
+  "description": "Overlay showing current FFXIV instance for ACT / OverlayPlugin",
+  "private": true,
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build:ts": "tsc -p .",
+    "build:static": "copyfiles -u 1 \"src/**/*.{html,css,md}\" dist",
+    "build": "npm run build:static && npm run build:ts",
+    "deploy": "npm run clean && npm run build && gh-pages -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/allainecactuar/ffxiv-instance-overlay.git"
+  },
+  "keywords": [],
+  "author": "Allaine Cactuar <allainecactuar@gmail.com>",
+  "license": "BSD-3-Clause",
+  "devDependencies": {
+    "copyfiles": "^2.1.1",
+    "gh-pages": "^2.1.1",
+    "typescript": "^3.6.3"
+  }
+}
