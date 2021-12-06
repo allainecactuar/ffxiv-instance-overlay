@@ -39,20 +39,19 @@
 namespace InstanceOverlay {
   const LOG_PARSE_EVENT = 'onLogLine';
 
-  interface OverlayPluginLogLine {
-    opcode: number;
-    timestamp: Date;
-    payload: string[];
-  }
+  // Event Data always has [type, timestampt, ...]
+  const LINE_TYPE_INDEX = 0;
+  const TIMESTAMP_INDEX = 1;
 
-  // ChangeZone Payload [ zoneID, zoneName, UUID ]
-  const CHANGE_ZONE_OPCODE = 1;
+  const LINE_TYPE_LOGLINE = '00'; // Event Data: [type, timestamp, code, name, line]
+  const LOGLINE_CODE_INDEX = 2;
+  const LOGLINE_LINE_INDEX = 4;
 
-  // LogLine Payload [ messageID, ... ]
-  const LOG_LINE_OPCODE = 0;
+  const LINE_TYPE_CHANGEZONE = '01'; // Event Data: [type, timestamp, id, name]
 
-  const INSTANCE_MESSAGE_ID = '0039';
-  // Payload [ "0039", Unused, "You are now in the instanced area {AreaName} {InstanceSymbol}." ]
+  const INSTANCE_MESSAGE_LOGLINE_CODE = '0039';
+  // Sample Event Data:
+  // ["00","2021-12-06T10:37:13.0000000-08:00","0039","","You are now in the instanced area Garlemald . Current instance can be confirmed at any time using the /instance text command.","fb990aa147cb1367"]
   const INSTANCE_MESSAGE_PATTERN = /You are now in the instanced area (.*?)(.)[.]/;
   const INSTANCE_MESSAGE_AREA_NAME_INDEX = 1;
   const INSTANCE_MESSAGE_INSTANCE_SYMBOL_INDEX = 2;
@@ -70,32 +69,39 @@ namespace InstanceOverlay {
     }
   }
 
-  function onLogLine(event: CustomEvent<OverlayPluginLogLine>) {
-    if (
-      typeof event !== 'object' ||
-      typeof event.detail !== 'object' ||
-      !Array.isArray(event.detail.payload)
-    ) {
-      console.log('Bad event object to onLogLine');
-      return;
+  function onLogLine(event: CustomEvent<string>) {
+    if ( typeof event !== 'object' ||
+         typeof event.detail !== 'string' ) {
+      console.log(`Bad event object to onLogLine: ${event.detail}`);
+      return
     }
+
+    let detail = JSON.parse(event.detail);
+    if ( !Array.isArray(detail) ||
+         detail.length < LINE_TYPE_INDEX + 1 ) {
+      console.log(`Bad event object to onLogLine: ${event.detail}`);
+      return
+    }
+
+    let lineType = detail[LINE_TYPE_INDEX];
 
     // ChangeZone events are always fired before the instance message,
     // and there are no instance messages at all for zones without
     // instances. So always clear the instance number on ChangeZone.
-    if (CHANGE_ZONE_OPCODE === event.detail.opcode) {
+    if (LINE_TYPE_CHANGEZONE === lineType) {
       setInstance(0);
       return;
     }
 
     if (
-      LOG_LINE_OPCODE !== event.detail.opcode ||
-      INSTANCE_MESSAGE_ID !== event.detail.payload[0]
+      LINE_TYPE_LOGLINE !== lineType ||
+      detail.length < LOGLINE_LINE_INDEX + 1 ||
+      INSTANCE_MESSAGE_LOGLINE_CODE !== detail[LOGLINE_CODE_INDEX]
     ) {
       return;
     }
 
-    const logLineMessage = event.detail.payload[2];
+    const logLineMessage = detail[LOGLINE_LINE_INDEX];
     const match = logLineMessage.match(INSTANCE_MESSAGE_PATTERN);
     if (null === match) {
       return;

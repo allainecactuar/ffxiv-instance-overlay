@@ -21,10 +21,11 @@
   "author": "Allaine Cactuar <allainecactuar@gmail.com>",
   "license": "BSD-3-Clause",
   "devDependencies": {
-    "copyfiles": "^2.1.1",
-    "gh-pages": "^2.1.1",
-    "gts": "^1.1.0",
-    "typescript": "^3.6.3",
-    "@types/node": "^10.0.3"
-  }
+    "@types/node": "^10.17.60",
+    "copyfiles": "^2.4.1",
+    "gh-pages": "^2.2.0",
+    "gts": "^3.1.0",
+    "typescript": "^3.9.10"
+  },
+  "dependencies": {}
 }
