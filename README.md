@@ -5,8 +5,9 @@ Overlay showing current FFXIV instance for ACT / OverlayPlugin
 * Plugins > OverlayPlugin.dll
 * New
   * Name: Instance
-  * Type: Log Parse
-* Highlight your new Instance LogParseOverlay, and set
+  * Preset: Custom
+  * Type: MiniParse
+* Highlight your new Instance MiniParseOverlay, and set
   * URL: https://allainecactuar.github.io/ffxiv-instance-overlay/instance-overlay.html
 * Reload overlay
 
