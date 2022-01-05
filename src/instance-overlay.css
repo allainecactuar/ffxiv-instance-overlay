@@ -9,7 +9,6 @@ html {
   height: 100%;
   background-color: transparent;
   overflow: hidden;
-  /*border: 1px solid white;*/
 }
 
 body {
@@ -20,9 +19,10 @@ body {
 span {
   font: bold 20px "Segoe UI";
   line-height: 0;
-  color: #4e1708;
+  color: white;
   border-radius: 50%;
-  background-color: #cfc7b2;
+  background-color: #1d1d1d;
   padding: 1px 9px 4px 9px;
   text-align: center;
+  border: 1px solid white;
 }
